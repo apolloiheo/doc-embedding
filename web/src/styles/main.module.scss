@@ -1,0 +1,49 @@
+/* styles/main.module.css */
+.container {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    font-size: 15px;
+
+    margin-bottom: 2px;
+    padding: 20px;
+
+    span {
+        display: inline-block;
+        margin-left: 1em;
+        color: #777;
+    }
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 40px); /* Adjust height based on header/footer size */
+    overflow: hidden;
+
+    border-top: 1px solid #eee;
+}
+
+.fileSection {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    border-right: 1px solid #eee;
+
+    display: flex;
+    max-width: 20em;
+}
+
+.docSection {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    border-right: 1px solid #eee;
+}
