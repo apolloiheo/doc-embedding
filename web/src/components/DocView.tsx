@@ -18,8 +18,10 @@ const RenderHighlights = ( value, highlights ) => {
     return value.split(/(\s+)/).map((word, index) => {
         if (/\s+/.test(word)) {
             whites++;
-            if (word == '\n') return '<br/>'
-            return word;
+            console.log(word);
+            console.log('word', word, word.length, (word.match(/\n/g) || []).length);
+            if ((word.match(/\n/g) || []).length == 1) return word.replace(/\n/g, "<br/>");
+            return word.replace("\n", "").replace(/\n/g, "<br/>");
         }
 
         return (highlights.includes(index-whites)) ? (
@@ -59,18 +61,35 @@ const DocView = ({ states: {
     };
 
     const [docValue, setDocValue] = useState(texts[documentInd]);
-    const docChange = (e) => {
+    const docChange = async (e) => {
         if (documentInd < defDocuments.length) return;
         let textsCopy = [...texts];
         textsCopy[documentInd] = e.target.innerText;
         setTexts(textsCopy);
         setDocValue(e.target.innerText);
     };
-    const docSend = () => {
-        //
+    const docSend = async () => {
+        let request = await fetch('http://localhost:8000/highlight', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            document: docValue,
+            query: hValue
+          })
+        });
+        let request_data = await request.json();
+        console.log('data', request_data);
+        // setHValue(request_data.result);
     };
 
     const [hValue, setHValue] = useState<number[]>(highlights[documentInd]);
+
+    useEffect(() => {
+        if (docValue && hValue)
+            docSend();
+    }, [docValue, hValue]);
 
     useEffect(() => {
         let highlightsCopy = [...highlights];
