@@ -22,6 +22,8 @@ const RenderHighlights = ( value, highlights ) => {
             console.log('word', word, word.length, (word.match(/\n/g) || []).length);
             if ((word.match(/\n/g) || []).length == 1) return word.replace(/\n/g, "<br/>");
             return word.replace("\n", "").replace(/\n/g, "<br/>");
+
+            // int divide by 2 and + 1 = # of \n in a chain of \n s (chat gpt this)
         }
 
         return (highlights.includes(index-whites)) ? (
