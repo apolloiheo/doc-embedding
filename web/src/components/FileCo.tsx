@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from 'react';
 import { ChakraProvider } from '@chakra-ui/react'
-import { Input, InputGroup, InputRightElement } from '@chakra-ui/react'
+import { Input, InputGroup } from '@chakra-ui/react'
 
 import Image from "next/image";
 import Head from "next/head";
@@ -11,13 +11,15 @@ const FileCo = ({ states: {
     defDocuments, setDefDocuments,
     documents, setDocuments,
     allDocs,
-    documentInd, setDocumentInd
+    documentInd, setDocumentInd,
+
+    addDoc
 }}) => {
 
     const [inputValue, setInputValue] = useState('');
     const handleSend = () => {
         if (inputValue.trim() !== '') {
-            setDocuments([...documents, inputValue.slice(0, 15)]);
+            addDoc(inputValue.slice(0, 15));
             setDocumentInd(allDocs.length);
             setInputValue('');
           }
