@@ -5,13 +5,10 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-origins = [
-    "http://localhost:5173",  # Add your origins here
-    "https://pioneer.bronco.ai",
-    "https://stampede.bronco.ai",
-    "https://bronco-stampede.vercel.app",
-    "http://127.0.0.1"
-]
+# origins = [
+#     "http://localhost:3000"
+#     "127.0.0.1"
+# ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -28,7 +25,8 @@ class Data(BaseModel):
 from embedding import default
 
 @app.post("/highlight")
-async def highlight(data: Data):
+async def highlight(request: Data):
+    data = request
     print(data)
     document = data.document
     query = data.query

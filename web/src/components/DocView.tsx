@@ -18,12 +18,10 @@ const RenderHighlights = ( value, highlights ) => {
     return value.split(/(\s+)/).map((word, index) => {
         if (/\s+/.test(word)) {
             whites++;
-            console.log(word);
-            console.log('word', word, word.length, (word.match(/\n/g) || []).length);
-            if ((word.match(/\n/g) || []).length == 1) return word.replace(/\n/g, "<br/>");
-            return word.replace("\n", "").replace(/\n/g, "<br/>");
 
-            // int divide by 2 and + 1 = # of \n in a chain of \n s (chat gpt this)
+            return word.replace(/\n+/g, (match) => '<br/>'.repeat(
+                Math.floor((match.length + 1) / 2)
+            ));
         }
 
         return (highlights.includes(index-whites)) ? (
